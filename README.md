@@ -5,7 +5,7 @@
 ![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-19.2-blue?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
-![Prisma](https://img.shields.io/badge/Prisma-7.3-2D3748?style=for-the-badge&logo=prisma)
+![MongoDB](https://img.shields.io/badge/MongoDB-8.8-47A248?style=for-the-badge&logo=mongodb)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38B2AC?style=for-the-badge&logo=tailwind-css)
 
 **Your Outsourced Growth Team | Building Growth Engines for Modern Businesses**
@@ -64,7 +64,7 @@ This platform features:
 - **Tailwind CSS 4**: Latest styling framework with custom design system
 
 ### 📱 Core Functionality
-- **Enquiry Form**: Validated contact form with Prisma database integration
+- **Enquiry Form**: Validated contact form with MongoDB database integration
 - **Newsletter Subscription**: Email collection with duplicate prevention
 - **Service Showcase**: Detailed presentation of marketing services
 - **Process Visualization**: Step-by-step growth methodology
@@ -93,8 +93,8 @@ This platform features:
 - **Animations**: [Tailwind Animate](https://github.com/jamiebuilds/tailwindcss-animate) - Animation utilities
 
 ### Backend
-- **Database ORM**: [Prisma 7.3](https://www.prisma.io/) - Next-generation ORM
-- **Database**: PostgreSQL (Neon) or SQLite (development)
+- **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas) - Cloud-hosted NoSQL database
+- **ODM**: [Mongoose 8.8](https://mongoosejs.com/) - MongoDB object modeling
 - **Validation**: [Zod](https://zod.dev/) - TypeScript-first schema validation
 - **Forms**: [React Hook Form](https://react-hook-form.com/) - Performant form library
 
@@ -113,7 +113,7 @@ This platform features:
 Ensure you have the following installed:
 - **Node.js** 18.x or higher
 - **npm** or **yarn** or **pnpm**
-- **PostgreSQL** (for production) or **SQLite** (for development)
+- **MongoDB Atlas account** (free tier available)
 
 ### Installation
 
@@ -136,26 +136,14 @@ Ensure you have the following installed:
    ```bash
    cp .env.example .env
    ```
-   Edit `.env` with your configuration (see [Environment Variables](#environment-variables))
+   Edit `.env` with your MongoDB Atlas connection string (see [Environment Variables](#environment-variables))
 
-4. **Set up the database**
-   ```bash
-   # Generate Prisma Client
-   npx prisma generate
-   
-   # Push database schema (for development)
-   npx prisma db push
-   
-   # Or run migrations (for production)
-   npx prisma migrate dev
-   ```
-
-5. **Run the development server**
+4. **Run the development server**
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ---
@@ -165,12 +153,8 @@ Ensure you have the following installed:
 Create a `.env` file in the root directory:
 
 ```env
-# Database Configuration
-# For PostgreSQL (Production with Neon)
-DATABASE_URL="postgresql://user:password@host:5432/database?sslmode=require"
-
-# Or for SQLite (Local Development)
-# DATABASE_URL="file:./prisma/dev.db"
+# MongoDB Atlas Connection String
+MONGODB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority"
 
 # Optional: Analytics
 NEXT_PUBLIC_ANALYTICS_ID="your-analytics-id"
@@ -179,67 +163,72 @@ NEXT_PUBLIC_ANALYTICS_ID="your-analytics-id"
 NODE_ENV="development"
 ```
 
-### Database Options
+### Setting up MongoDB Atlas
 
-#### Option 1: PostgreSQL with Neon (Recommended for Production)
-1. Sign up at [Neon](https://neon.tech)
-2. Create a new project
-3. Copy the connection string to `DATABASE_URL`
-
-#### Option 2: SQLite (Development Only)
-1. Update `prisma/schema.prisma`:
-   ```prisma
-   datasource db {
-     provider = "sqlite"
-     url      = "file:./dev.db"
-   }
+1. **Create a free account** at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
+2. **Create a new cluster** (free M0 tier is sufficient)
+3. **Create a database user**:
+   - Go to Database Access
+   - Add a new database user with a secure password
+   - Note down the username and password
+4. **Whitelist your IP**:
+   - Go to Network Access
+   - Add IP Address (use `0.0.0.0/0` for development, or your specific IP)
+   - For production on Vercel, add `0.0.0.0/0` or use Vercel's IP ranges
+5. **Get your connection string**:
+   - Click "Connect" on your cluster
+   - Choose "Connect your application"
+   - Copy the connection string
+   - Replace `<password>` with your database user password
+   - Replace `<database>` with your database name (e.g., `uplifts_media`)
+6. **Add to `.env`**:
+   ```env
+   MONGODB_URI="mongodb+srv://username:password@cluster.mongodb.net/uplifts_media?retryWrites=true&w=majority"
    ```
-2. Update `lib/prisma.ts` to remove Neon adapter
-3. Run `npx prisma db push`
 
 ---
 
 ## 📁 Database Setup
 
-### Prisma Schema
+### MongoDB Collections
 
-The database includes two main models:
+The database includes two main collections:
 
-```prisma
-model Enquiry {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String
-  company   String?
-  message   String
-  createdAt DateTime @default(now())
-}
-
-model Subscriber {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  createdAt DateTime @default(now())
+**Enquiry Collection:**
+```typescript
+{
+  _id: ObjectId,
+  name: string,
+  email: string,
+  company?: string,
+  message: string,
+  createdAt: Date,
+  updatedAt: Date
 }
 ```
 
-### Database Commands
-
-```bash
-# Generate Prisma Client
-npx prisma generate
-
-# Create a migration
-npx prisma migrate dev --name init
-
-# Push schema changes (no migration)
-npx prisma db push
-
-# Open Prisma Studio (Database GUI)
-npx prisma studio
-
-# Reset database
-npx prisma migrate reset
+**Subscriber Collection:**
+```typescript
+{
+  _id: ObjectId,
+  email: string (unique, indexed),
+  createdAt: Date,
+  updatedAt: Date
+}
 ```
+
+### Indexes
+
+Mongoose automatically creates the following indexes:
+- `Subscriber.email` - Unique index for duplicate prevention
+- `_id` fields - Default MongoDB index
+
+### Connection Management
+
+The application uses connection pooling optimized for serverless environments:
+- Connections are cached globally in development
+- Automatic reconnection on connection loss
+- Buffer commands disabled for immediate feedback
 
 ---
 
@@ -261,7 +250,7 @@ npx prisma migrate reset
    - `/app` - Pages and layouts
    - `/components` - React components
    - `/lib` - Utility functions and configurations
-   - `/prisma` - Database schema and migrations
+   - `/lib/models` - Mongoose models for MongoDB
 3. **Test your changes** in the browser (auto-reloads on save)
 4. **Run linting**: `npm run lint`
 5. **Build for production**: `npm run build`
@@ -307,11 +296,11 @@ uplifts_media/
 │   ├── use-mobile.ts          # Mobile detection hook
 │   └── use-toast.ts           # Toast notification hook
 ├── lib/                        # Utilities & Config
-│   ├── prisma.ts              # Prisma client instance
+│   ├── mongodb.ts             # MongoDB connection utility
+│   ├── models/                # Mongoose models
+│   │   ├── Enquiry.ts        # Enquiry model
+│   │   └── Subscriber.ts     # Subscriber model
 │   └── utils.ts               # Utility functions
-├── prisma/                     # Database
-│   ├── schema.prisma          # Database schema
-│   └── config.ts              # Prisma configuration
 ├── public/                     # Static assets
 │   ├── icons/                 # Favicon and app icons
 │   └── images/                # Images and placeholders
@@ -334,7 +323,7 @@ uplifts_media/
 - **`/components`**: Reusable React components (presentational)
 - **`/components/ui`**: shadcn/ui base components (buttons, forms, etc.)
 - **`/lib`**: Utility functions, configurations, and shared logic
-- **`/prisma`**: Database schema and ORM configuration
+- **`/lib/models`**: Mongoose models for MongoDB collections
 - **`/public`**: Static files served directly (images, icons, etc.)
 
 ---
@@ -436,7 +425,8 @@ Subscribe to newsletter.
    - Configure project settings
 
 3. **Set Environment Variables**
-   - Add `DATABASE_URL` in Vercel dashboard
+   - Add `MONGODB_URI` in Vercel dashboard (Settings → Environment Variables)
+   - Ensure your MongoDB Atlas cluster allows connections from `0.0.0.0/0` or Vercel's IP ranges
    - Add any other required environment variables
 
 4. **Deploy**
@@ -455,11 +445,12 @@ npm run start
 
 ### Pre-Deployment Checklist
 
-- [ ] Set up production database (Neon PostgreSQL)
-- [ ] Configure environment variables
-- [ ] Run `npx prisma generate` in build step
-- [ ] Run `npx prisma migrate deploy` for production database
+- [ ] Set up MongoDB Atlas cluster
+- [ ] Configure MongoDB Atlas network access (allow Vercel IPs or 0.0.0.0/0)
+- [ ] Create database user with read/write permissions
+- [ ] Set environment variables in Vercel dashboard
 - [ ] Test build locally: `npm run build && npm run start`
+- [ ] Verify MongoDB connection works in production
 - [ ] Enable analytics (optional)
 - [ ] Set up custom domain (optional)
 
@@ -522,12 +513,21 @@ All components are in `/components` and can be customized. UI components from sh
 
 ### Common Issues
 
-**Problem**: Database connection error
+**Problem**: MongoDB connection error
 ```
 Solution: 
-1. Check DATABASE_URL in .env
-2. Run: npx prisma generate
-3. Run: npx prisma db push
+1. Check MONGODB_URI in .env is correct
+2. Verify MongoDB Atlas network access allows your IP
+3. Ensure database user has correct permissions
+4. Check if cluster is active (not paused)
+```
+
+**Problem**: "Subscriber already exists" not working
+```
+Solution:
+1. Ensure unique index exists on Subscriber.email
+2. MongoDB Atlas may take a moment to create indexes
+3. Check MongoDB Atlas UI → Collections → Indexes
 ```
 
 **Problem**: Module not found errors
@@ -535,7 +535,7 @@ Solution:
 Solution:
 1. Delete node_modules and package-lock.json
 2. Run: npm install
-3. Run: npx prisma generate
+3. Restart dev server
 ```
 
 **Problem**: Build fails with TypeScript errors
@@ -552,6 +552,14 @@ Solution:
 1. Check Tailwind is configured in postcss.config.mjs
 2. Verify @import 'tailwindcss' in globals.css
 3. Clear .next folder and rebuild
+```
+
+**Problem**: Mongoose model compilation errors in development
+```
+Solution:
+1. This is normal in Next.js hot reload
+2. Models check for existing compilation before recompiling
+3. Restart dev server if issues persist
 ```
 
 ---
@@ -603,7 +611,8 @@ This project is proprietary and confidential. © 2024 Uplifts Media. All rights 
 - [shadcn/ui](https://ui.shadcn.com/) - Beautiful component library
 - [Vercel](https://vercel.com) - Deployment platform
 - [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [Prisma](https://www.prisma.io/) - Database ORM
+- [MongoDB Atlas](https://www.mongodb.com/atlas) - Cloud database
+- [Mongoose](https://mongoosejs.com/) - MongoDB ODM
 
 ---
 

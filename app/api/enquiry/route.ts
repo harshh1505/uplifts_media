@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import connectDB from '@/lib/mongodb';
+import Enquiry from '@/lib/models/Enquiry';
 
 const enquirySchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -14,16 +15,28 @@ export async function POST(request: Request) {
         const body = await request.json();
         const validatedData = enquirySchema.parse(body);
 
-        const enquiry = await prisma.enquiry.create({
-            data: {
-                name: validatedData.name,
-                email: validatedData.email,
-                company: validatedData.company || "",
-                message: validatedData.message,
-            },
+        // Connect to MongoDB
+        await connectDB();
+
+        // Create enquiry
+        const enquiry = await Enquiry.create({
+            name: validatedData.name,
+            email: validatedData.email,
+            company: validatedData.company || "",
+            message: validatedData.message,
         });
 
-        return NextResponse.json({ success: true, enquiry }, { status: 201 });
+        // Convert MongoDB document to plain object with serializable _id
+        const enquiryResponse = {
+            id: enquiry._id.toString(),
+            name: enquiry.name,
+            email: enquiry.email,
+            company: enquiry.company,
+            message: enquiry.message,
+            createdAt: enquiry.createdAt.toISOString(),
+        };
+
+        return NextResponse.json({ success: true, enquiry: enquiryResponse }, { status: 201 });
     } catch (error) {
         console.error('Error submitting enquiry:', error);
         if (error instanceof z.ZodError) {

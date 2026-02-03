@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import { z } from 'zod';
+import connectDB from '@/lib/mongodb';
+import Subscriber from '@/lib/models/Subscriber';
 
 const subscriberSchema = z.object({
     email: z.string().email("Invalid email address"),
@@ -11,22 +12,31 @@ export async function POST(request: Request) {
         const body = await request.json();
         const validatedData = subscriberSchema.parse(body);
 
+        // Connect to MongoDB
+        await connectDB();
+
         // Check if email already exists
-        const existing = await prisma.subscriber.findUnique({
-            where: { email: validatedData.email },
+        const existing = await Subscriber.findOne({ 
+            email: validatedData.email.toLowerCase() 
         });
 
         if (existing) {
             return NextResponse.json({ success: true, message: 'Already subscribed' }, { status: 200 });
         }
 
-        const subscriber = await prisma.subscriber.create({
-            data: {
-                email: validatedData.email,
-            },
+        // Create subscriber
+        const subscriber = await Subscriber.create({
+            email: validatedData.email,
         });
 
-        return NextResponse.json({ success: true, subscriber }, { status: 201 });
+        // Convert MongoDB document to plain object with serializable _id
+        const subscriberResponse = {
+            id: subscriber._id.toString(),
+            email: subscriber.email,
+            createdAt: subscriber.createdAt.toISOString(),
+        };
+
+        return NextResponse.json({ success: true, subscriber: subscriberResponse }, { status: 201 });
     } catch (error) {
         console.error('Error submitting subscription:', error);
         if (error instanceof z.ZodError) {

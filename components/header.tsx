@@ -22,11 +22,10 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
           ? 'bg-white/95 backdrop-blur shadow-md border-b border-gray-200'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
 
@@ -42,6 +41,9 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
+          <Link href="/" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+            Home
+          </Link>
           <Link href="/services" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
             Services
           </Link>
@@ -79,6 +81,9 @@ export function Header() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-4">
+          <Link href="/" onClick={closeMobileMenu} className="block font-medium text-gray-700">
+            Home
+          </Link>
 
           <Link href="/services" onClick={closeMobileMenu} className="block font-medium text-gray-700">
             Services

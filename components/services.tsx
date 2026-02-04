@@ -40,12 +40,12 @@ const services = [
   {
     icon: TrendingUp,
     title: 'Revenue Optimization',
-    description: 'SEO, e-commerce, quick commerce, CRO',
+    description: 'SEO, e-commerce, CRO',
     details: [
       'Technical SEO',
       'E-commerce optimization',
       'Conversion rate optimization',
-      'Quick commerce setup',
+      'Analytics tracking',
     ],
     color: '#EC4899',
   },
@@ -53,65 +53,59 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section id="services" className="py-24 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
-            From Foundation to Rocket Fuel
+
+        {/* Heading */}
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0A1A3A] mb-4">
+            From Foundation to Rocket Fuel 🚀
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Our core service pillars cover everything you need to scale predictably.
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            Everything you need to plan, launch and scale your business growth — all under one roof.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => {
             const Icon = service.icon;
+
             return (
               <div
                 key={index}
-                className="group relative bg-white rounded-xl border border-gray-200 hover:border-transparent overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2"
+                className="group relative bg-white rounded-2xl border border-gray-200 p-8 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
               >
-                {/* Gradient background on hover */}
+                {/* Icon */}
                 <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300 pointer-events-none"
-                  style={{ backgroundColor: service.color }}
-                />
-
-                <div className="relative p-8 h-full flex flex-col">
-                  {/* Icon */}
-                  <div
-                    className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300"
-                    style={{ backgroundColor: `${service.color}20` }}
-                  >
-                    <Icon size={24} style={{ color: service.color }} />
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold text-[#0A1A3A] mb-2 line-clamp-2">{service.title}</h3>
-
-                  {/* Description */}
-                  <p className="text-sm text-gray-600 mb-6 flex-grow">{service.description}</p>
-
-                  {/* Details list */}
-                  <div className="space-y-2">
-                    {service.details.map((detail, idx) => (
-                      <div key={idx} className="flex items-start gap-2">
-                        <div
-                          className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
-                          style={{ backgroundColor: service.color }}
-                        />
-                        <span className="text-sm text-gray-600">{detail}</span>
-                      </div>
-                    ))}
-                  </div>
+                  className="w-14 h-14 rounded-xl flex items-center justify-center mb-6"
+                  style={{ backgroundColor: `${service.color}20` }}
+                >
+                  <Icon size={26} style={{ color: service.color }} />
                 </div>
 
-                {/* Bottom accent bar */}
-                <div
-                  className="h-1 bg-gradient-to-r from-transparent via-current to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ backgroundColor: service.color }}
-                />
+                {/* Title */}
+                <h3 className="text-lg font-semibold text-[#0A1A3A] mb-2">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-sm text-gray-600 mb-6">
+                  {service.description}
+                </p>
+
+                {/* Details */}
+                <ul className="space-y-2">
+                  {service.details.map((detail, i) => (
+                    <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                      <span
+                        className="w-1.5 h-1.5 mt-2 rounded-full"
+                        style={{ backgroundColor: service.color }}
+                      />
+                      {detail}
+                    </li>
+                  ))}
+                </ul>
               </div>
             );
           })}

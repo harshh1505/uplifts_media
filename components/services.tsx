@@ -153,7 +153,7 @@ export function Services() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-center py-32 px-6"
+        className="text-center pt-12 pb-20 px-6"
       >
         <h2 className="text-5xl md:text-6xl font-bold text-[#0A1A3A] mb-6">
           Scale Faster.

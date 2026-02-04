@@ -2,7 +2,7 @@ import { EnquiryForm } from '@/components/enquiry-form';
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-white pt-28 px-6">
+    <div className="bg-white px-6">
 
       {/* Hero */}
       <section className="text-center max-w-4xl mx-auto mb-16">
@@ -21,6 +21,6 @@ export default function ContactPage() {
         <EnquiryForm />
       </section>
 
-    </main>
+    </div>
   );
 }

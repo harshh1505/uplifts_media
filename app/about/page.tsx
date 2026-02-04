@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white pt-28 px-6">
+    <div className="bg-white px-6">
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto text-center mb-24">
@@ -117,6 +117,6 @@ export default function AboutPage() {
         </a>
       </section>
 
-    </main>
+    </div>
   );
 }

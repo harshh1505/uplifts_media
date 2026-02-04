@@ -2,8 +2,8 @@ import { Services } from '@/components/services';
 
 export default function ServicesPage() {
   return (
-    <main className="pt-28">
+    <div>
       <Services />
-    </main>
+    </div>
   );
 }

@@ -23,7 +23,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden">
+    <section className="pt-4 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-20 right-10 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
       <div className="absolute bottom-0 left-20 w-96 h-96 bg-green-100/30 rounded-full blur-3xl opacity-30 pointer-events-none"></div>

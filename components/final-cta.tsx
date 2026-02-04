@@ -70,7 +70,7 @@ export function FinalCTA() {
                 className="bg-gradient-to-r from-[#3B82F6] to-[#10B981] hover:shadow-2xl hover:shadow-blue-500/30 text-white font-bold rounded-full px-10 py-7 text-lg transition-all duration-300 hover:-translate-y-1 group"
               >
                 <span className="flex items-center gap-2">
-                  Claim Your Free Audit
+                  Connect With Us
                   <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </Button>

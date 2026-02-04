@@ -1,24 +1,24 @@
-import React from 'react';
-import type { Metadata, Viewport } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
+import React from "react"
+import type { Metadata, Viewport } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { Toaster } from '@/components/ui/sonner';
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
+import { Toaster } from "@/components/ui/sonner"
 
-import './globals.css';
-
-
-
-/* ================= FONTS ================= */
-
-const geist = Geist({ subsets: ['latin'] });
-const geistMono = Geist_Mono({ subsets: ['latin'] });
+import './globals.css'
 
 
 
-/* ================= SEO META ================= */
+/* ================= KEEP YOUR ORIGINAL FONTS ================= */
+
+const _geist = Geist({ subsets: ["latin"] });
+const _geistMono = Geist_Mono({ subsets: ["latin"] });
+
+
+
+/* ================= META ================= */
 
 export const metadata: Metadata = {
   title: 'Uplifts Media | Growth Engineering for Modern Businesses',
@@ -27,33 +27,24 @@ export const metadata: Metadata = {
   generator: 'v0.app',
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/icon-light-32x32.png', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.png', media: '(prefers-color-scheme: dark)' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
     ],
     apple: '/apple-icon.png',
   },
-};
+}
 
 
 
-/* ================= FIX NEXT 16 VIEWPORT ================= */
+/* ✅ NEXT 16 FIX (move viewport outside metadata) */
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-};
+}
 
 
 
@@ -62,24 +53,23 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
-    <html
-      lang="en"
-      className={`${geist.className} ${geistMono.className}`}
-    >
-      <body className="antialiased bg-white text-[#0A1A3A]">
+    <html lang="en">
 
-        {/* Global Header */}
+      {/* ✅ FONT EXACTLY SAME AS BEFORE */}
+      <body className="font-sans antialiased bg-white text-[#0A1A3A]">
+
+        {/* HEADER on every page */}
         <Header />
 
-        {/* Page Content */}
+        {/* PAGE CONTENT */}
         <main className="min-h-screen pt-24">
           {children}
         </main>
 
-        {/* Global Footer */}
+        {/* FOOTER on every page */}
         <Footer />
 
         {/* Extras */}
@@ -88,5 +78,5 @@ export default function RootLayout({
 
       </body>
     </html>
-  );
+  )
 }

@@ -70,13 +70,13 @@ export function Footer() {
             <h4 className="font-semibold text-lg mb-6">Contact</h4>
             <ul className="space-y-3 text-gray-400">
               <li>
-                <a href="mailto:hello@uplifts.media" className="hover:text-[#10B981] transition-colors">
-                  hello@uplifts.media
+                <a href="mailto:inquiry@upliftsmedia.com" className="hover:text-[#10B981] transition-colors">
+                  inquiry@upliftsmedia.com
                 </a>
               </li>
               <li>
-                <a href="tel:+16155551234" className="hover:text-[#10B981] transition-colors">
-                  +1 (615) 555-1234
+                <a href="tel:+919288267345" className="hover:text-[#10B981] transition-colors">
+                  +91 9288267345
                 </a>
               </li>
               <li>Gurugram, Haryana India</li>

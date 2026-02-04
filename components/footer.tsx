@@ -5,9 +5,9 @@ import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { toast } from "sonner";
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61552494301623', label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/Upifts.media/', label: 'Instagram' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/company/uplitsmedia/', label: 'LinkedIn' },
 ];
 
 const quickLinks = [

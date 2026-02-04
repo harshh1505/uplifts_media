@@ -18,6 +18,8 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -40,31 +42,31 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/services" className="text-gray-700 hover:text-[#3B82F6] transition-colors text-sm font-medium">
+          <Link href="/services" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
             Services
           </Link>
-          <Link href="/about" className="text-gray-700 hover:text-[#3B82F6] transition-colors text-sm font-medium">
+          <Link href="/about" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
             About
           </Link>
-          <Link href="#case-studies" className="text-gray-700 hover:text-[#3B82F6] transition-colors text-sm font-medium">
+          <Link href="#case-studies" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
             Case Studies
           </Link>
-          <Link href="/blog" className="text-gray-700 hover:text-[#3B82F6] transition-colors text-sm font-medium">
+          <Link href="/blog" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
             Blog
           </Link>
         </div>
 
-        {/* CTA Button (SCROLLS TO FORM) */}
+        {/* Desktop CTA → Contact page */}
         <div className="hidden md:block">
           <Button
             asChild
-            className="bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full px-6 transition-all duration-300 hover:shadow-lg"
+            className="bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full px-6 hover:shadow-lg transition"
           >
             <Link href="/contact">Get in Touch</Link>
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="md:hidden text-[#0A1A3A]"
@@ -77,25 +79,29 @@ export function Header() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-4">
-          <Link href="/services" className="block text-gray-700 hover:text-[#3B82F6] font-medium">
+
+          <Link href="/services" onClick={closeMobileMenu} className="block font-medium text-gray-700">
             Services
           </Link>
-          <Link href="/about" className="block text-gray-700 hover:text-[#3B82F6] font-medium">
+
+          <Link href="/about" onClick={closeMobileMenu} className="block font-medium text-gray-700">
             About
           </Link>
-          <Link href="#case-studies" className="block text-gray-700 hover:text-[#3B82F6] font-medium">
+
+          <Link href="#case-studies" onClick={closeMobileMenu} className="block font-medium text-gray-700">
             Case Studies
           </Link>
-          <Link href="/blog" className="block text-gray-700 hover:text-[#3B82F6] font-medium">
+
+          <Link href="/blog" onClick={closeMobileMenu} className="block font-medium text-gray-700">
             Blog
           </Link>
 
-          {/* Mobile CTA (SCROLLS TOO) */}
+          {/* Mobile CTA → Contact page */}
           <Button
             asChild
             className="w-full bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full"
           >
-            <Link href="#enquiry" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/contact" onClick={closeMobileMenu}>
               Get in Touch
             </Link>
           </Button>

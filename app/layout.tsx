@@ -5,6 +5,7 @@ import { Analytics } from '@vercel/analytics/next'
 
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Toaster } from "@/components/ui/sonner"
 
 import './globals.css'
@@ -71,6 +72,9 @@ export default function RootLayout({
 
         {/* FOOTER on every page */}
         <Footer />
+
+        {/* WhatsApp Floating Button */}
+        <WhatsAppButton />
 
         {/* Extras */}
         <Analytics />

@@ -6,6 +6,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
 
 import './globals.css'
@@ -57,29 +58,34 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
 
       {/* ✅ FONT EXACTLY SAME AS BEFORE */}
-      <body className="font-sans antialiased bg-white text-[#0A1A3A]">
+      <body className="font-sans antialiased transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {/* HEADER on every page */}
+          <Header />
 
-        {/* HEADER on every page */}
-        <Header />
+          {/* PAGE CONTENT */}
+          <main className="min-h-screen pt-24">
+            {children}
+          </main>
 
-        {/* PAGE CONTENT */}
-        <main className="min-h-screen pt-24">
-          {children}
-        </main>
+          {/* FOOTER on every page */}
+          <Footer />
 
-        {/* FOOTER on every page */}
-        <Footer />
+          {/* WhatsApp Floating Button */}
+          <WhatsAppButton />
 
-        {/* WhatsApp Floating Button */}
-        <WhatsAppButton />
-
-        {/* Extras */}
-        <Analytics />
-        <Toaster />
-
+          {/* Extras */}
+          <Analytics />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   )

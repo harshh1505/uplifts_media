@@ -52,7 +52,7 @@ export function Header() {
           <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] dark:hover:text-[#3B82F6] text-sm font-medium transition-colors">
             About
           </Link>
-          <Link href="#case-studies" className="text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] dark:hover:text-[#3B82F6] text-sm font-medium transition-colors">
+          <Link href="/case-studies" className="text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] dark:hover:text-[#3B82F6] text-sm font-medium transition-colors">
             Case Studies
           </Link>
           <Link href="/blog" className="text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] dark:hover:text-[#3B82F6] text-sm font-medium transition-colors">
@@ -106,8 +106,12 @@ export function Header() {
               About
             </Link>
 
-            <Link href="#case-studies" onClick={closeMobileMenu} className="block font-medium text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] transition-colors">
+            <Link href="/case-studies" onClick={closeMobileMenu} className="block font-medium text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] transition-colors">
               Case Studies
+            </Link>
+
+            <Link href="/#testimonials" onClick={closeMobileMenu} className="block font-medium text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] transition-colors">
+              Testimonials
             </Link>
 
             <Link href="/blog" onClick={closeMobileMenu} className="block font-medium text-gray-700 dark:text-gray-300 hover:text-[#3B82F6] transition-colors">

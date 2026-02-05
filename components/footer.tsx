@@ -11,10 +11,11 @@ const socialLinks = [
 ];
 
 const quickLinks = [
-  { label: 'Services', href: '#services' },
-  { label: 'Process', href: '#process' },
-  { label: 'Case Studies', href: '#case-studies' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Services', href: '/services' },
+  { label: 'Process', href: '/#process' },
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Testimonials', href: '/#testimonials' },
+  { label: 'FAQ', href: '/#faq' },
 ];
 
 export function Footer() {

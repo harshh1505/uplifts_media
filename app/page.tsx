@@ -4,7 +4,7 @@ import { Problems } from '@/components/problems';
 import { Services } from '@/components/services';
 import { Process } from '@/components/process';
 import { StartupsSection } from '@/components/startups';
-import { CaseStudies } from '@/components/case-studies';
+import { Testimonials } from '@/components/testimonials';
 import { FAQ } from '@/components/faq';
 import { FinalCTA } from '@/components/final-cta';
 import { Footer } from '@/components/footer';
@@ -17,7 +17,7 @@ export default function Home() {
       <Services />
       <Process />
       <StartupsSection />
-      <CaseStudies />
+      <Testimonials />
       <FAQ />
       <FinalCTA />
     </>

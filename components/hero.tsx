@@ -4,6 +4,37 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import { useRef, useEffect } from 'react';
+import { motion, Variants } from 'framer-motion';
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: [0.215, 0.61, 0.355, 1] },
+  },
+};
+
+const chartVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.9, x: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: { duration: 1, ease: [0.215, 0.61, 0.355, 1], delay: 0.4 },
+  },
+};
 
 export function Hero() {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -18,15 +49,25 @@ export function Hero() {
       const length = path.getTotalLength();
       path.style.strokeDasharray = String(length);
       path.style.strokeDashoffset = String(length);
-      path.style.animation = `dash 2s ease-in-out ${index * 0.2}s forwards infinite`;
+      path.style.animation = `dash 2s ease-in-out ${index * 0.2 + 1}s forwards`;
     });
   }, []);
 
   return (
     <section className="pt-4 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl opacity-40 pointer-events-none"></div>
-      <div className="absolute bottom-0 left-20 w-96 h-96 bg-green-100/30 rounded-full blur-3xl opacity-30 pointer-events-none"></div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.4 }}
+        transition={{ duration: 2 }}
+        className="absolute top-20 right-10 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl pointer-events-none"
+      ></motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.3 }}
+        transition={{ duration: 2, delay: 0.5 }}
+        className="absolute bottom-0 left-20 w-96 h-96 bg-green-100/30 rounded-full blur-3xl pointer-events-none"
+      ></motion.div>
 
       <style>{`
         @keyframes dash {
@@ -39,24 +80,29 @@ export function Hero() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-6 z-10">
-            <div className="inline-block">
+          <motion.div
+            className="space-y-6 z-10"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={itemVariants} className="inline-block">
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#10B981]/10 text-[#10B981] rounded-full text-sm font-semibold">
                 <TrendingUp size={16} />
                 Scaling Startups & Scale-ups
               </span>
-            </div>
+            </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-[#0A1A3A]">
+            <motion.h1 variants={itemVariants} className="text-5xl sm:text-6xl lg:text-6xl font-bold leading-tight text-[#0A1A3A]">
               We Don't Just Do Marketing. We Build{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] to-[#10B981]">Growth Engines.</span>
-            </h1>
+            </motion.h1>
 
-            <p className="text-xl text-gray-600 leading-relaxed max-w-xl">
+            <motion.p variants={itemVariants} className="text-xl text-gray-600 leading-relaxed max-w-xl">
               Uplifts Media is your outsourced growth team. We handle everything from social presence to PPC, SEO, and e-commerce—so you can focus on scaling your business.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button
                 asChild
                 className="bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full px-8 py-6 text-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-400/30 group"
@@ -74,10 +120,10 @@ export function Hero() {
               >
                 <Link href="#case-studies">See Our Case Studies</Link>
               </Button>
-            </div>
+            </motion.div>
 
             {/* Trust indicators */}
-            <div className="flex items-center gap-8 pt-8 text-sm text-gray-600">
+            <motion.div variants={itemVariants} className="flex items-center gap-8 pt-8 text-sm text-gray-600">
               <div>
                 <p className="font-semibold text-[#0A1A3A]">50+</p>
                 <p>Successful Projects</p>
@@ -90,11 +136,16 @@ export function Hero() {
                 <p className="font-semibold text-[#0A1A3A]">98%</p>
                 <p>Client Retention</p>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right - Growth Chart Animation */}
-          <div className="flex justify-center items-center">
+          <motion.div
+            className="flex justify-center items-center"
+            variants={chartVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <svg
               ref={svgRef}
               viewBox="0 0 400 300"
@@ -170,7 +221,7 @@ export function Hero() {
               </text>
               <line x1="350" y1="35" x2="350" y2="42" stroke="#10B981" strokeWidth="1.5" />
             </svg>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

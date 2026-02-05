@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,8 +24,8 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-white/95 backdrop-blur shadow-md border-b border-gray-200'
-          : 'bg-transparent'
+        ? 'bg-white/95 backdrop-blur shadow-md border-b border-gray-200'
+        : 'bg-transparent'
         }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
@@ -41,19 +42,19 @@ export function Header() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
-          <Link href="/" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+          <Link href="/" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium transition-colors">
             Home
           </Link>
-          <Link href="/services" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+          <Link href="/services" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium transition-colors">
             Services
           </Link>
-          <Link href="/about" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+          <Link href="/about" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium transition-colors">
             About
           </Link>
-          <Link href="#case-studies" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+          <Link href="#case-studies" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium transition-colors">
             Case Studies
           </Link>
-          <Link href="/blog" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium">
+          <Link href="/blog" className="text-gray-700 hover:text-[#3B82F6] text-sm font-medium transition-colors">
             Blog
           </Link>
         </div>
@@ -79,39 +80,47 @@ export function Header() {
       </nav>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-4">
-          <Link href="/" onClick={closeMobileMenu} className="block font-medium text-gray-700">
-            Home
-          </Link>
-
-          <Link href="/services" onClick={closeMobileMenu} className="block font-medium text-gray-700">
-            Services
-          </Link>
-
-          <Link href="/about" onClick={closeMobileMenu} className="block font-medium text-gray-700">
-            About
-          </Link>
-
-          <Link href="#case-studies" onClick={closeMobileMenu} className="block font-medium text-gray-700">
-            Case Studies
-          </Link>
-
-          <Link href="/blog" onClick={closeMobileMenu} className="block font-medium text-gray-700">
-            Blog
-          </Link>
-
-          {/* Mobile CTA → Contact page */}
-          <Button
-            asChild
-            className="w-full bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-white border-b border-gray-200 px-4 py-4 space-y-4 overflow-hidden"
           >
-            <Link href="/contact" onClick={closeMobileMenu}>
-              Get in Touch
+            <Link href="/" onClick={closeMobileMenu} className="block font-medium text-gray-700 hover:text-[#3B82F6] transition-colors">
+              Home
             </Link>
-          </Button>
-        </div>
-      )}
+
+            <Link href="/services" onClick={closeMobileMenu} className="block font-medium text-gray-700 hover:text-[#3B82F6] transition-colors">
+              Services
+            </Link>
+
+            <Link href="/about" onClick={closeMobileMenu} className="block font-medium text-gray-700 hover:text-[#3B82F6] transition-colors">
+              About
+            </Link>
+
+            <Link href="#case-studies" onClick={closeMobileMenu} className="block font-medium text-gray-700 hover:text-[#3B82F6] transition-colors">
+              Case Studies
+            </Link>
+
+            <Link href="/blog" onClick={closeMobileMenu} className="block font-medium text-gray-700 hover:text-[#3B82F6] transition-colors">
+              Blog
+            </Link>
+
+            {/* Mobile CTA → Contact page */}
+            <Button
+              asChild
+              className="w-full bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full"
+            >
+              <Link href="/contact" onClick={closeMobileMenu}>
+                Get in Touch
+              </Link>
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

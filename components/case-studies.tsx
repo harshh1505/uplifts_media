@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { motion, Variants, AnimatePresence } from 'framer-motion';
 
 const caseStudies = [
   {
@@ -52,28 +53,61 @@ const testimonials = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.95, y: 30 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
 export function CaseStudies() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   return (
-    <section id="case-studies" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+    <section id="case-studies" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Case Studies */}
         <div className="mb-20">
-          <div className="text-center mb-16">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
               We Deliver Uplifts
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Real growth, real metrics, real results.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {caseStudies.map((study) => (
-              <div
+              <motion.div
                 key={study.id}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-2 group"
+                variants={cardVariants}
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 group"
               >
                 {/* Header */}
                 <div className="bg-gradient-to-r from-[#0A1A3A] to-[#3B82F6] p-8 text-white">
@@ -114,13 +148,19 @@ export function CaseStudies() {
                     </span>
                   </Button>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-12 relative overflow-hidden">
+        <motion.div
+          className="bg-white rounded-2xl border border-gray-200 p-12 relative overflow-hidden"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           {/* Decorative elements */}
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#3B82F6] to-[#10B981] opacity-5 rounded-full blur-3xl pointer-events-none" />
 
@@ -128,36 +168,46 @@ export function CaseStudies() {
             <h3 className="text-3xl font-bold text-[#0A1A3A] mb-8">What Founders Say</h3>
 
             {/* Testimonial */}
-            <div className="mb-8 min-h-32">
-              <p className="text-2xl text-gray-700 mb-6 italic">"{testimonials[activeTestimonial].quote}"</p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center text-white font-bold text-lg">
-                  {testimonials[activeTestimonial].author.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-semibold text-[#0A1A3A]">{testimonials[activeTestimonial].author}</p>
-                  <p className="text-sm text-gray-600">{testimonials[activeTestimonial].role} • {testimonials[activeTestimonial].company}</p>
-                </div>
-              </div>
+            <div className="mb-0 min-h-[300px] flex flex-col justify-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTestimonial}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="space-y-6"
+                >
+                  <p className="text-2xl text-gray-700 italic leading-relaxed">"{testimonials[activeTestimonial].quote}"</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center text-white font-bold text-lg">
+                      {testimonials[activeTestimonial].author.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-[#0A1A3A]">{testimonials[activeTestimonial].author}</p>
+                      <p className="text-sm text-gray-600">{testimonials[activeTestimonial].role} • {testimonials[activeTestimonial].company}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* Navigation dots */}
-            <div className="flex items-center gap-2 pt-8 border-t border-gray-200">
+            <div className="flex items-center gap-2 pt-8 border-t border-gray-200 mt-8">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setActiveTestimonial(index)}
-                  className={`w-3 h-3 rounded-full transition-all ${
-                    index === activeTestimonial
+                  className={`w-3 h-3 rounded-full transition-all ${index === activeTestimonial
                       ? 'bg-[#3B82F6] w-8'
                       : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
+                    }`}
                   aria-label={`View testimonial ${index + 1}`}
                 />
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

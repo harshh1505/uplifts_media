@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 const faqs = [
   {
@@ -26,63 +27,110 @@ const faqs = [
   },
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 overflow-hidden">
       <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
             Common Questions
           </h2>
           <p className="text-xl text-gray-600">
             Let's clear up any doubts about how we work.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="space-y-4">
+        <motion.div
+          className="space-y-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           {faqs.map((faq, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={itemVariants}
               className="bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:border-[#3B82F6] group"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-5 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                aria-expanded={openIndex === index}
               >
                 <h3 className="text-lg font-semibold text-left text-[#0A1A3A] group-hover:text-[#3B82F6] transition-colors">
                   {faq.question}
                 </h3>
                 <ChevronDown
                   size={24}
-                  className={`flex-shrink-0 text-[#3B82F6] transition-transform duration-300 ${
-                    openIndex === index ? 'rotate-180' : ''
-                  }`}
+                  className={`flex-shrink-0 text-[#3B82F6] transition-transform duration-300 ${openIndex === index ? 'rotate-180' : ''
+                    }`}
                 />
               </button>
 
-              {openIndex === index && (
-                <div className="px-6 py-4 bg-gradient-to-r from-blue-50/50 to-green-50/50 border-t border-gray-200 animate-in fade-in duration-200">
-                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-                </div>
-              )}
-            </div>
+              <AnimatePresence initial={false}>
+                {openIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className="px-6 py-4 bg-gradient-to-r from-blue-50/50 to-green-50/50 border-t border-gray-200">
+                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTA */}
-        <div className="mt-16 text-center">
+        <motion.div
+          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
           <p className="text-gray-600 mb-4">
             Still have questions? We'd love to chat.
           </p>
           <a
             href="#cta"
-            className="inline-block text-[#3B82F6] font-semibold hover:text-[#3B82F6]/80 transition-colors"
+            className="inline-block text-[#3B82F6] font-semibold hover:text-[#3B82F6]/80 transition-colors group"
           >
-            Book a free consultation →
+            Book a free consultation <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

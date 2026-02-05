@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { EnquiryForm } from '@/components/enquiry-form';
 import { toast } from "sonner";
+import { motion } from 'framer-motion';
 
 export function FinalCTA() {
   const [email, setEmail] = useState('');
@@ -47,22 +48,46 @@ export function FinalCTA() {
   return (
     <section id="cta" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#0A1A3A] via-[#1A2A4A] to-[#0A1A3A] relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
-      <div className="absolute -bottom-10 left-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.6 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5 }}
+        className="absolute top-20 right-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+      ></motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.5 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5, delay: 0.3 }}
+        className="absolute -bottom-10 left-20 w-96 h-96 bg-green-500/10 rounded-full blur-3xl pointer-events-none"
+      ></motion.div>
 
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Main CTA */}
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             Ready to Systematize Your Growth?
           </h2>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto">
             Book a free, no-obligation 30-minute Growth Audit. We'll analyze your current setup and provide a custom action plan—no sales pitch, just honest insights.
           </p>
-        </div>
+        </motion.div>
 
         {/* Primary CTA Button */}
-        <div className="flex justify-center mb-12">
+        <motion.div
+          className="flex justify-center mb-12"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <Dialog>
             <DialogTrigger asChild>
               <Button
@@ -87,10 +112,16 @@ export function FinalCTA() {
               </div>
             </DialogContent>
           </Dialog>
-        </div>
+        </motion.div>
 
         {/* Newsletter signup */}
-        <div className="bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20">
+        <motion.div
+          className="bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <div className="flex items-center gap-3 mb-6">
             <Mail size={20} className="text-[#10B981]" />
             <h3 className="text-xl font-semibold text-white">Get Growth Insights Weekly</h3>
@@ -116,7 +147,7 @@ export function FinalCTA() {
           <p className="text-sm text-white/70 mt-4">
             Unsubscribe anytime. We respect your inbox. No spam, just real growth strategies.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

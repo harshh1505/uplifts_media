@@ -1,4 +1,7 @@
+'use client';
+
 import { Check } from 'lucide-react';
+import { motion, Variants } from 'framer-motion';
 
 const benefits = [
   'Founder-friendly retainers (no lock-ins)',
@@ -9,34 +12,75 @@ const benefits = [
   'Flexible engagement models',
 ];
 
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
 export function StartupsSection() {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
             Built for Startups & Scale-ups
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             We understand your unique needs at every stage of growth.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Benefits */}
-          <div className="space-y-6">
+          <motion.div
+            className="space-y-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-4 group">
+              <motion.div
+                key={index}
+                variants={itemVariants}
+                className="flex items-start gap-4 group"
+              >
                 <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center flex-shrink-0 mt-1 group-hover:scale-110 transition-transform">
                   <Check size={16} className="text-white" />
                 </div>
                 <p className="text-lg text-gray-700 group-hover:text-[#0A1A3A] transition-colors">{benefit}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Right Column - Growth Visualization */}
-          <div className="relative h-96 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex items-end justify-start overflow-hidden border border-gray-200">
+          <motion.div
+            className="relative h-96 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 flex items-end justify-start overflow-hidden border border-gray-200"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             {/* Decorative background */}
             <div className="absolute inset-0 opacity-5 pointer-events-none">
               <div className="absolute top-10 right-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl" />
@@ -73,30 +117,60 @@ export function StartupsSection() {
               </defs>
 
               {/* Month 1 */}
-              <rect x="50" y="160" width="35" height="40" fill="url(#barGradient1)" rx="4" className="animate-pulse" />
+              <motion.rect
+                initial={{ height: 0, y: 200 }}
+                whileInView={{ height: 40, y: 160 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.5 }}
+                x="50" width="35" fill="url(#barGradient1)" rx="4"
+              />
               <text x="67" y="215" fontSize="10" fill="#6B7280" textAnchor="middle">
                 M1
               </text>
 
               {/* Month 3 */}
-              <rect x="120" y="100" width="35" height="100" fill="url(#barGradient1)" rx="4" className="animate-pulse" style={{ animationDelay: '0.1s' }} />
+              <motion.rect
+                initial={{ height: 0, y: 200 }}
+                whileInView={{ height: 100, y: 100 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.7 }}
+                x="120" width="35" fill="url(#barGradient1)" rx="4"
+              />
               <text x="137" y="215" fontSize="10" fill="#6B7280" textAnchor="middle">
                 M3
               </text>
 
               {/* Month 6 */}
-              <rect x="190" y="30" width="35" height="170" fill="url(#barGradient2)" rx="4" className="animate-pulse" style={{ animationDelay: '0.2s' }} />
+              <motion.rect
+                initial={{ height: 0, y: 200 }}
+                whileInView={{ height: 170, y: 30 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.9 }}
+                x="190" width="35" fill="url(#barGradient2)" rx="4"
+              />
               <text x="207" y="215" fontSize="10" fill="#6B7280" textAnchor="middle">
                 M6
               </text>
 
               {/* Trend line */}
-              <polyline points="67,160 137,100 207,30" stroke="#10B981" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4" />
+              <motion.path
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 1.2 }}
+                d="M 67 160 L 137 100 L 207 30"
+                stroke="#10B981"
+                strokeWidth="2"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray="4"
+              />
             </svg>
 
             {/* Corner accent */}
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#3B82F6] to-[#10B981] opacity-10 rounded-bl-full pointer-events-none" />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

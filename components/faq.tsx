@@ -50,7 +50,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 overflow-hidden">
+    <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#0A1A3B]/50 overflow-hidden">
       <div className="max-w-3xl mx-auto">
         <motion.div
           className="text-center mb-16"
@@ -59,10 +59,10 @@ export function FAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
+          <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] dark:text-white mb-4">
             Common Questions
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 dark:text-gray-400">
             Let's clear up any doubts about how we work.
           </p>
         </motion.div>
@@ -78,14 +78,14 @@ export function FAQ() {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-white rounded-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:border-[#3B82F6] group"
+              className="bg-white dark:bg-white/5 rounded-xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all duration-300 hover:border-[#3B82F6] group"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full px-6 py-5 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full px-6 py-5 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-white/5 transition-colors"
                 aria-expanded={openIndex === index}
               >
-                <h3 className="text-lg font-semibold text-left text-[#0A1A3A] group-hover:text-[#3B82F6] transition-colors">
+                <h3 className="text-lg font-semibold text-left text-[#0A1A3A] dark:text-gray-200 group-hover:text-[#3B82F6] transition-colors">
                   {faq.question}
                 </h3>
                 <ChevronDown
@@ -103,8 +103,8 @@ export function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   >
-                    <div className="px-6 py-4 bg-gradient-to-r from-blue-50/50 to-green-50/50 border-t border-gray-200">
-                      <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                    <div className="px-6 py-4 bg-gradient-to-r from-blue-50/50 to-green-50/50 dark:from-blue-900/10 dark:to-green-900/10 border-t border-gray-200 dark:border-white/10">
+                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{faq.answer}</p>
                     </div>
                   </motion.div>
                 )}
@@ -121,11 +121,13 @@ export function FAQ() {
           viewport={{ once: true }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
             Still have questions? We'd love to chat.
           </p>
           <a
-            href="#cta"
+            href="https://wa.me/919288267345?text=What%20are%20the%20steps%20to%20book%20a%20consultation%3F"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block text-[#3B82F6] font-semibold hover:text-[#3B82F6]/80 transition-colors group"
           >
             Book a free consultation <span className="inline-block group-hover:translate-x-1 transition-transform">→</span>

@@ -1,32 +1,40 @@
 'use client';
 
-import { CheckCircle, Lightbulb, Zap, BarChart3 } from 'lucide-react';
+import { CheckCircle, Lightbulb, Zap, BarChart3, ArrowRight } from 'lucide-react';
 import { motion, Variants } from 'framer-motion';
 
 const steps = [
   {
-    number: 1,
+    number: '01',
     icon: CheckCircle,
     title: 'Audit & Align',
-    description: 'Deep dive into your business, competitive landscape, and current performance metrics.',
+    description: 'We perform a deep dive into your business, competitive landscape, and current performance metrics to identify gaps.',
+    color: 'from-blue-500 to-blue-600',
+    shadow: 'shadow-blue-500/20'
   },
   {
-    number: 2,
+    number: '02',
     icon: Lightbulb,
     title: 'Strategy & Roadmap',
-    description: 'Craft a custom 90-day growth plan tailored to your stage and goals.',
+    description: 'Crafting a custom 90-day growth plan tailored to your specific stage, goals, and market dynamics.',
+    color: 'from-purple-500 to-purple-600',
+    shadow: 'shadow-purple-500/20'
   },
   {
-    number: 3,
+    number: '03',
     icon: Zap,
     title: 'Execute & Optimize',
-    description: 'Full implementation across all channels with continuous A/B testing and refinement.',
+    description: 'Rapid implementation across all channels with continuous A/B testing and algorithmic refinement.',
+    color: 'from-emerald-500 to-emerald-600',
+    shadow: 'shadow-emerald-500/20'
   },
   {
-    number: 4,
+    number: '04',
     icon: BarChart3,
     title: 'Scale & Analyze',
-    description: 'Weekly performance reviews and monthly deep-dive reports to track progress.',
+    description: 'Weekly performance reviews and monthly deep-dive strategic sessions to systematically scale what works.',
+    color: 'from-amber-500 to-amber-600',
+    shadow: 'shadow-amber-500/20'
   },
 ];
 
@@ -35,141 +43,133 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
+      staggerChildren: 0.15,
     },
   },
 };
 
-const stepVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.8, y: 30 },
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
-    scale: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.215, 0.61, 0.355, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
 export function Process() {
   return (
-    <section id="process" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-      {/* Decorative line */}
-      <motion.div
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
-        className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#3B82F6] to-transparent origin-center"
-      ></motion.div>
+    <section id="process" className="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#0A1A3B] relative overflow-hidden transition-colors duration-300">
+      {/* Background blobs */}
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-emerald-500/5 dark:bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-[#0A1A3A] mb-4">
-            The Uplifts Method: Predictable, Scalable Growth
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            A proven 4-step framework we've refined across 50+ successful projects.
-          </p>
-        </motion.div>
-
-        {/* Timeline */}
-        <div className="relative">
-          {/* Desktop timeline line */}
-          <motion.div
-            initial={{ scaleX: 0, opacity: 0 }}
-            whileInView={{ scaleX: 1, opacity: 1 }}
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center mb-20">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
-            className="hidden lg:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-[#3B82F6]/30 via-[#10B981]/30 to-transparent pointer-events-none origin-left"
-          />
-
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
+            className="text-blue-600 dark:text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block"
           >
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              return (
-                <motion.div key={index} variants={stepVariants} className="relative">
-                  {/* Step container */}
-                  <div className="flex flex-col items-start">
-                    {/* Icon circle */}
-                    <motion.div
-                      className="relative z-10 mb-6"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    >
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] p-1 shadow-lg">
-                        <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                          <Icon size={28} className="text-[#3B82F6]" />
-                        </div>
-                      </div>
-                      <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-[#10B981] text-white flex items-center justify-center text-sm font-bold shadow-md">
-                        {step.number}
-                      </div>
-                    </motion.div>
-
-                    {/* Content */}
-                    <h3 className="text-2xl font-bold text-[#0A1A3A] mb-3">{step.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{step.description}</p>
-                  </div>
-
-                  {/* Connector arrow (desktop) */}
-                  {index < steps.length - 1 && (
-                    <motion.div
-                      initial={{ scaleX: 0, opacity: 0 }}
-                      whileInView={{ scaleX: 1, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: 0.8 + index * 0.2 }}
-                      className="hidden lg:block absolute top-10 left-20 w-12 h-1 bg-gradient-to-r from-[#3B82F6] to-[#10B981] transform translate-x-full origin-left"
-                    />
-                  )}
-                </motion.div>
-              );
-            })}
-          </motion.div>
+            Our Methodology
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl sm:text-5xl font-extrabold text-[#0A1A3A] dark:text-white mb-6 tracking-tight leading-tight"
+          >
+            The Uplifts Method: <br className="hidden sm:block" />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-emerald-500">Predictable, Scalable Growth</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            We don't guess. We use a data-driven framework refined across dozens of high-growth ventures.
+          </motion.p>
         </div>
 
-        {/* Timeline for mobile */}
         <motion.div
-          className="lg:hidden mt-12 space-y-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
         >
-          {steps.map((step, index) => (
-            <motion.div key={index} variants={stepVariants} className="flex gap-6">
-              <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#3B82F6] to-[#10B981] flex items-center justify-center text-white font-bold text-lg">
+          {steps.map((step, index) => {
+            const Icon = step.icon;
+            return (
+              <motion.div
+                key={index}
+                variants={cardVariants}
+                whileHover={{ y: -10 }}
+                className="group relative bg-white dark:bg-white/5 p-8 rounded-3xl border border-gray-100 dark:border-white/10 shadow-sm hover:shadow-xl dark:hover:bg-white/[0.08] transition-all duration-300"
+              >
+                {/* Step Number Background */}
+                <div className="absolute top-4 right-8 text-4xl font-black text-gray-50 dark:text-white/5 transition-colors group-hover:text-blue-500/10 dark:group-hover:text-blue-400/10 select-none">
                   {step.number}
                 </div>
+
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${step.color} ${step.shadow} flex items-center justify-center mb-8 transform transition-transform group-hover:scale-110 group-hover:rotate-3 shadow-lg`}>
+                  <Icon className="text-white w-7 h-7" />
+                </div>
+
+                <h3 className="text-2xl font-bold text-[#0A1A3A] dark:text-white mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                  {step.title}
+                </h3>
+
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                  {step.description}
+                </p>
+
+                <div className="flex items-center text-sm font-bold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0">
+                  Detailed Strategy <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
+
+                {/* Desktop Connection line */}
                 {index < steps.length - 1 && (
-                  <motion.div
-                    initial={{ scaleY: 0 }}
-                    whileInView={{ scaleY: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="w-1 h-12 bg-gradient-to-b from-[#3B82F6] to-[#10B981] mt-2 origin-top"
-                  />
+                  <div className="hidden lg:block absolute top-1/2 -right-4 translate-x-1/2 w-8 h-[2px] bg-gradient-to-r from-gray-200 to-transparent dark:from-white/10 dark:to-transparent z-0" />
                 )}
-              </div>
-              <div className="pb-8">
-                <h4 className="font-bold text-[#0A1A3A] mb-2">{step.title}</h4>
-                <p className="text-gray-600 text-sm">{step.description}</p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* Mobile Connector info */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="mt-16 text-center text-sm text-gray-500 dark:text-gray-500 font-medium lg:hidden"
+        >
+          Scroll to see our full journey →
+        </motion.div>
+
+        <motion.div
+          className="mt-20 flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <div className="inline-flex items-center gap-4 bg-gray-50 dark:bg-white/5 px-8 py-4 rounded-full border border-gray-100 dark:border-white/10">
+            <div className="flex -space-x-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className={`w-8 h-8 rounded-full border-2 border-white dark:border-[#0A1A3B] bg-gray-200 dark:bg-gray-700 overflow-hidden`}>
+                  <img src={`https://i.pravatar.cc/100?u=user${i}`} alt="user" className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-300">
+              Trusted by 50+ high-growth companies worldwide
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

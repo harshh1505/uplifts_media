@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { toast } from "sonner";
 
+import Image from 'next/image';
+
 const socialLinks = [
   { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61552494301623', label: 'Facebook' },
   { icon: Instagram, href: 'https://www.instagram.com/Upifts.media/', label: 'Instagram' },
@@ -26,9 +28,13 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#3B82F6] to-[#10B981] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">UM</span>
-              </div>
+              <Image
+                src="/logo-official.png"
+                alt="Uplifts Media Logo"
+                width={32}
+                height={32}
+                className="rounded-lg object-contain bg-white p-0.5"
+              />
               <span className="font-bold text-lg">Uplifts Media</span>
             </div>
             <p className="text-gray-400">Growth Engineering for Modern Businesses</p>

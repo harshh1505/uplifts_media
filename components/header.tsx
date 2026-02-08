@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/mode-toggle';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import Image from 'next/image';
+
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -33,9 +35,13 @@ export function Header() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-gradient-to-br from-[#0A1A3A] to-[#3B82F6] dark:from-[#3B82F6] dark:to-[#10B981] rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">UM</span>
-          </div>
+          <Image
+            src="/logo-official.png"
+            alt="Uplifts Media Logo"
+            width={32}
+            height={32}
+            className="rounded-lg object-contain"
+          />
           <span className="font-bold text-lg text-[#0A1A3A] dark:text-white hidden sm:inline">
             Uplifts Media
           </span>

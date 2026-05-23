@@ -51,18 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-     <head>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YT7LLL7SWB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-YT7LLL7SWB');
-</script>
-      </head>
-      
+    
       {/* ✅ FONT EXACTLY SAME AS BEFORE */}
       <body className="font-sans antialiased transition-colors duration-300">
         <ThemeProvider

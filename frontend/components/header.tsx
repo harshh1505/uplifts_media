@@ -73,7 +73,7 @@ export function Header() {
             asChild
             className="bg-[#3B82F6] hover:bg-[#3B82F6]/90 text-white font-semibold rounded-full px-6 hover:shadow-lg transition dark:bg-white dark:text-[#0A1A3A] dark:hover:bg-white/90"
           >
-            <Link href="/contact">Get in Touch</Link>
+            <Link href="/contact">Get a Free Audit</Link>
           </Button>
         </div>
 

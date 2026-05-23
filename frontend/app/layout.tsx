@@ -51,9 +51,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      
-      {/* ✅ यहाँ आपका सही Google Tag (G-YT7LLL7SWB) लगा दिया गया है */}
       <head>
+        {/* ✅ Google Analytics Scripts properly added using next/script */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YT7LLL7SWB"
           strategy="afterInteractive"

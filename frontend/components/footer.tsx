@@ -151,16 +151,26 @@ export function Footer() {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
             <p>&copy; 2026 Uplifts Media. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-[#10B981] transition-colors">
+              <Link href="/privacy-policy" className="hover:text-[#10B981] transition-colors">
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-[#10B981] transition-colors">
+              </Link>
+              <Link href="/terms-of-service" className="hover:text-[#10B981] transition-colors">
                 Terms of Service
-              </a>
-              <a href="#" className="hover:text-[#10B981] transition-colors">
+              </Link>
+              <Link href="/cookie-policy" className="hover:text-[#10B981] transition-colors">
                 Cookie Policy
-              </a>
+              </Link>
             </div>
+          </div>
+          <div className="mt-6 text-center text-gray-500 text-sm">
+            <a 
+              href="https://techtrendgo.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-[#10B981] transition-colors"
+            >
+              Created and maintained by Tech Trend Go
+            </a>
           </div>
         </div>
       </div>
